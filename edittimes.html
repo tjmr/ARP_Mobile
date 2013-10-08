@@ -1,0 +1,250 @@
+<!--
+This needs a tidy up - remove try and catch etc.
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="js/mobiletheme.css" />
+    <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.3.2.min.css" />
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/include.js"></script>
+    <script src="js/jquery.mobile-1.3.2.min.js"></script>
+    <title>ARP Mobile</title>
+
+    <script>
+
+try {
+  
+  /*$parameters = getbookingid();
+  $data = $parameters.split(':');
+  var $bookingid = $data[0];
+  var $button = $data[1];*/
+
+  var $bookingid = localStorage.getItem("currentbookingid");
+  var $button = localStorage.getItem("edittimebutton");  
+  
+  var $booking = {
+    departtime: '-',
+    starttime: '-',
+    finishtime: '-',
+    returntime: '-',
+    completiondetailid: '0',
+    complete: 'no', 
+    edited: 'no'  
+    };
+
+  var $bookingdata = {};
+
+  var $jsonbookingdata = localStorage.getItem("jsonbookingdata");
+  if($jsonbookingdata) {
+    $bookingdata = JSON.parse($jsonbookingdata);
+    if(!$bookingdata[$bookingid]) $bookingdata[$bookingid] = $booking;
+    else $booking = $bookingdata[$bookingid];
+    }
+  else $bookingdata = {};
+  
+  var $source = '';
+  var $heading = '';
+  
+  switch($button) {
+    case 'depart':
+      $source = $booking.departtime;
+	  $heading = 'Depart';
+      break;
+    case 'start':
+      $source = $booking.starttime;
+	  $heading = 'Start';
+      break;
+    case 'finish':
+      $source = $booking.finishtime;
+	  $heading = 'Finish';
+      break;
+    case 'return':
+      $source = $booking.returntime;
+	  $heading = 'Return';
+      break;
+    default:
+    }
+
+  $sourcedatedate = $source.substring(0,2);
+  $sourcedatemonth = $source.substring(3,5);
+  $sourcedateyear = $source.substring(6,10);
+  $sourcedate = $sourcedateyear + "-" + $sourcedatemonth + "-" + $sourcedatedate;
+  $sourcetime = $source.substring(11);
+  
+  $(document).ready(function() {
+    pageinitialisation();
+	document.getElementById("dateentry").value = $sourcedate;
+	document.getElementById("timeentry").value = $sourcetime;
+    });
+	
+  } 
+  
+catch (error) {
+  console.error("Your javascript has an error: " + error);
+  }
+
+function savebuttonpressed(form) {
+  var $dateentry = form.dateentry.value;
+  var $timeentry = form.timeentry.value;
+  if($dateentry=='' || $timeentry=='') $datetime = '-';
+  else $datetime = $dateentry.substring(8,10)+"/"+$dateentry.substring(5,7)+"/"+$dateentry.substring(0,4)+" "+$timeentry;
+   
+  switch($button) {
+    case 'depart':
+      $booking.departtime = $datetime;  
+      break;
+    case 'start':
+      $booking.starttime = $datetime;  
+      break;
+    case 'finish':
+      $booking.finishtime = $datetime;  
+      break;
+    case 'return':
+      $booking.returntime = $datetime;  
+      break;
+    default:
+    }
+	
+  $booking.edited = 'yes';
+  
+  $bookingdata[$bookingid] = $booking;
+  var $jsonbookingdata = JSON.stringify($bookingdata);
+  localStorage.setItem("jsonbookingdata",$jsonbookingdata);  
+
+  window.location.replace("bookingdetail.html");
+  }
+  
+function cancelbuttonpressed() {
+  window.location.replace("bookingdetail.html");
+  }
+  
+function nineoclockpressed() {
+  $sourcetime = "09:00";
+  document.getElementById("timeentry").value = $sourcetime;
+  }
+  
+function fivethirtypressed() {
+  $sourcetime = "17:30";
+  document.getElementById("timeentry").value = $sourcetime;
+  }
+  
+</script>
+
+</head>
+
+<body>
+
+<div data-role="page" id="page1">
+  <div data-role="header" data-theme="b">
+    <h3><script>document.write($heading)</script></h3>
+  </div>
+  
+  <div data-role="content">
+  
+    <form>
+	  <ul data-role="listview">
+	    <li data-role="fieldcontain">
+	      <label for="dateentry">Date:</label>
+	      <input type="date" name="dateentry" id="dateentry" value="" />
+		</li>
+		
+		<li data-role="fieldcontain">
+	      <label for="timeentry">Time:</label>
+	      <input type="time" name="timeentry" id="timeentry" value=""  />
+		  
+		  <!--<div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button" data-theme="b" onclick="nineoclockpressed()">09:00</a>
+            <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>
+          </div>-->
+		</li>
+		
+        <li data-role="fieldcontain">
+		  <fieldset data-role="controlgroup" data-type="horizontal">
+		    <legend></legend>
+            <a data-role="button" data-theme="b" onclick="nineoclockpressed()">09:00</a>
+            <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>	
+		  </fieldset>
+		</li>		
+
+        <!--<li class="ui-body ui-body-b">
+          <fieldset class="ui-grid-a" data-mini="true">
+            <div class="ui-block-a"><a data-role="button" data-theme="d" onclick="nineoclockpressed()">09:00</a></div>
+            <div class="ui-block-b"><a data-role="button" data-theme="d" onclick="fivethirtypressed()">17:30</a></div>
+		  </fieldset>
+		</li>-->	
+		
+        <li class="ui-body ui-body-b">
+          <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
+            <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
+		  </fieldset>
+		</li>		
+		
+	  </ul>
+	  
+	  <!--<div class="ui-grid-a">
+        <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
+        <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
+	  </div>-->
+    </form>
+  
+
+  <!--  <form name="edittimes" action="" method="GET">
+	<br />
+	<div class="ui-body ui-body-b">
+          <label for="olddateentry"><b>Date:</b></label>
+		  <input name="olddateentry" id="olddateentry" placeholder="" value="" type="date">
+
+	</div>
+
+		<br />
+	
+
+	<div class="ui-body ui-body-b">
+    
+          <label for="oldtimeentry"><b>Time:</b></label>
+		  <input name="oldtimeentry" id="oldtimeentry" placeholder="" value="" type="time">
+	    <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button" data-theme="b" onclick="nineoclockpressed()">09:00</a>
+        <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>
+        </div>
+	</div>
+		
+   <br />
+		  
+	  <div class="ui-grid-a">
+        <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
+        <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
+	  </div>
+	  
+    </form>-->
+	
+  </div>
+  
+  <!--<div data-role="footer" data-theme="b" data-position="fixed">
+  
+            <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
+            <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
+		  </fieldset>
+
+  
+  </div>-->
+  
+</div>
+
+</body>
+
+</html>
