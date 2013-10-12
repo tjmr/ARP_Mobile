@@ -4,7 +4,7 @@ This needs a tidy up - remove try and catch etc.
 
 <!DOCTYPE html>
 
-<html>
+<html manifest="../cache.manifest">
 
   <head>
     <meta http-equiv="Cache-Control" content="no-cache, no-, must-revalidate" />
@@ -16,20 +16,16 @@ This needs a tidy up - remove try and catch etc.
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="stylesheet" type="text/css" href="js/mobiletheme.css" />
-    <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.3.2.min.css" />
-    <script src="js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.mobile.min.css" />
+    <script src="js/jquery.min.js"></script>
     <script src="js/include.js"></script>
-    <script src="js/jquery.mobile-1.3.2.min.js"></script>
+    <script src="js/jquery.mobile.min.js"></script>
     <title>ARP Mobile</title>
 
     <script>
 
 try {
   
-  /*$parameters = getbookingid();
-  $data = $parameters.split(':');
-  var $bookingid = $data[0];
-  var $button = $data[1];*/
 
   var $bookingid = localStorage.getItem("currentbookingid");
   var $button = localStorage.getItem("edittimebutton");  
@@ -163,11 +159,6 @@ function fivethirtypressed() {
 		<li data-role="fieldcontain">
 	      <label for="timeentry">Time:</label>
 	      <input type="time" name="timeentry" id="timeentry" value=""  />
-		  
-		  <!--<div data-role="controlgroup" data-type="horizontal">
-            <a data-role="button" data-theme="b" onclick="nineoclockpressed()">09:00</a>
-            <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>
-          </div>-->
 		</li>
 		
         <li data-role="fieldcontain">
@@ -177,13 +168,6 @@ function fivethirtypressed() {
             <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>	
 		  </fieldset>
 		</li>		
-
-        <!--<li class="ui-body ui-body-b">
-          <fieldset class="ui-grid-a" data-mini="true">
-            <div class="ui-block-a"><a data-role="button" data-theme="d" onclick="nineoclockpressed()">09:00</a></div>
-            <div class="ui-block-b"><a data-role="button" data-theme="d" onclick="fivethirtypressed()">17:30</a></div>
-		  </fieldset>
-		</li>-->	
 		
         <li class="ui-body ui-body-b">
           <fieldset class="ui-grid-a">
@@ -194,54 +178,9 @@ function fivethirtypressed() {
 		
 	  </ul>
 	  
-	  <!--<div class="ui-grid-a">
-        <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
-        <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
-	  </div>-->
     </form>
-  
-
-  <!--  <form name="edittimes" action="" method="GET">
-	<br />
-	<div class="ui-body ui-body-b">
-          <label for="olddateentry"><b>Date:</b></label>
-		  <input name="olddateentry" id="olddateentry" placeholder="" value="" type="date">
-
-	</div>
-
-		<br />
-	
-
-	<div class="ui-body ui-body-b">
-    
-          <label for="oldtimeentry"><b>Time:</b></label>
-		  <input name="oldtimeentry" id="oldtimeentry" placeholder="" value="" type="time">
-	    <div data-role="controlgroup" data-type="horizontal">
-        <a data-role="button" data-theme="b" onclick="nineoclockpressed()">09:00</a>
-        <a data-role="button" data-theme="b" onclick="fivethirtypressed()">17:30</a>
-        </div>
-	</div>
-		
-   <br />
-		  
-	  <div class="ui-grid-a">
-        <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
-        <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
-	  </div>
-	  
-    </form>-->
 	
   </div>
-  
-  <!--<div data-role="footer" data-theme="b" data-position="fixed">
-  
-            <fieldset class="ui-grid-a">
-            <div class="ui-block-a"><input type="button" data-theme="c" data-icon="delete" value="Cancel" onclick="cancelbuttonpressed()"/></div>
-            <div class="ui-block-b"><input type="button" data-theme="b" data-icon="check" value="Save" onclick="savebuttonpressed(this.form)"/></div>
-		  </fieldset>
-
-  
-  </div>-->
   
 </div>
 

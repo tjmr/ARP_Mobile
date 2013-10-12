@@ -34,12 +34,13 @@ function formatdate($sourcedate) { // WORKS ONLINE AND OFFLINE
   } // end of formatdate
 
 function pageinitialisation() { // WORKS ONLINE AND OFFLINE
+  $rootpath = localStorage.getItem("rootpath");
   $pagetitle = localStorage.getItem("storedpagetitle");
   document.title = $pagetitle; 
   // if online re-download title incase of changes
   onlinecheck(function(result) {
     if(result==true) {  // online code here
-      $.post("http://plannerdev.burnleylab.co.uk/mobile/getsiteparameters.php",
+      $.post($rootpath + "getsiteparameters.php",
         function(data,status) {
 	      $pagetitle = data;
           localStorage.setItem("storedpagetitle",$pagetitle);
@@ -199,11 +200,12 @@ function getbookingid() { // WORKS ONLINE AND OFFLINE (OFFLINE FUNCTION)
   } // end of uploadbookingdata*/
   
 function uploadbookingdata(callback) { // ONLY WORKS ONLINE BUT CAN BE CALLED ONLINE OR OFFLINE
+  $rootpath = localStorage.getItem("rootpath");
   onlinecheck(function(result) {
     if(result==true) { // online code here	  
       var $jsonbookingdata = localStorage.getItem("jsonbookingdata");
       if($jsonbookingdata) { // only if jsonbookingdata exists
-	    $.post("http://plannerdev.burnleylab.co.uk/mobile/uploadbookingdata.php",{jsonbookingdata:$jsonbookingdata});	
+	    $.post($rootpath + "uploadbookingdata.php",{jsonbookingdata:$jsonbookingdata});	
 		} // end of if jsonbookingdata exists
 	  } // end of online code
 	  // no offline code for this one
@@ -212,9 +214,10 @@ function uploadbookingdata(callback) { // ONLY WORKS ONLINE BUT CAN BE CALLED ON
   } // end of newuploadbookingdata
   
 function downloadjobcompletionlist() { // ONLY WORKS ONLINE BUT CAN BE CALLED ONLINE OR OFFLINE
+  $rootpath = localStorage.getItem("rootpath");
   onlinecheck(function(result) {
     if(result==true) { // online code here	  
-      $.post("http://plannerdev.burnleylab.co.uk/mobile/getjobcompletionlist.php",   // read the job completion list for the menu from the server
+      $.post($rootpath + "getjobcompletionlist.php",   // read the job completion list for the menu from the server
       function(data,status) {
         var $jsonjobcompletionlist = data;
         if($jsonjobcompletionlist!='') {
@@ -228,9 +231,10 @@ function downloadjobcompletionlist() { // ONLY WORKS ONLINE BUT CAN BE CALLED ON
   }
   
 function downloadautocompletetypes() { // ONLY WORKS ONLINE BUT CAN BE CALLED ONLINE OR OFFLINE
+  $rootpath = localStorage.getItem("rootpath");
   onlinecheck(function(result) {
     if(result==true) { // online code here	  
-      $.post("http://plannerdev.burnleylab.co.uk/mobile/getautocompletetypes.php",   // read the job types that should auto complete
+      $.post($rootpath + "getautocompletetypes.php",   // read the job types that should auto complete
       function(data,status) {
         var $jsonautocompletetypes = data;
         if($jsonautocompletetypes!='') {
@@ -244,9 +248,10 @@ function downloadautocompletetypes() { // ONLY WORKS ONLINE BUT CAN BE CALLED ON
   } // end of downloadautocompletetypes
   
 function downloadjobs($engineerid,callback) { // ONLY WORKS ONLINE BUT CAN BE CALLED ONLINE OR OFFLINE
+  $rootpath = localStorage.getItem("rootpath");
   onlinecheck(function(result) { 
     if(result==true) { // online code here	    //  *****   CHECK $.AJAX TO HANDLE TIMEOUT     ********
-      $.post("http://plannerdev.burnleylab.co.uk/mobile/getbookedjobs.php",{engineerid:$engineerid},function(data,status) {
+      $.post($rootpath + "getbookedjobs.php",{engineerid:$engineerid},function(data,status) {
         var $jsonjobanddataarray = data;
 	    //alert($jsonjobanddataarray);
         var $jobanddataarray = {};
@@ -340,10 +345,11 @@ function compare(a,b) {
   }
   
 function onlinecheck(callback) {
+  $rootpath = localStorage.getItem("rootpath");
   $.ajax({
     cache: false,
     type: 'GET',
-    url: 'http://plannerdev.burnleylab.co.uk/mobile/online.txt',
+    url: $rootpath + 'online.txt',
     timeout: 500,
     success: function(data, textStatus, XMLHttpRequest) {
       if (data = 'online') callback(true);
