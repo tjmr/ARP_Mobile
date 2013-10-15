@@ -37,7 +37,6 @@ booked jobs button should disappear if no engineer set or invalid engineer set
         pageinitialisation();
 		autocomplete(function() {
 		
-		
 	    onlinecheck(function(result) {
           if(result==true) { // online code here
 		    downloadjobcompletionlist(); // downloads completion codes in case they have changed
@@ -55,9 +54,9 @@ booked jobs button should disappear if no engineer set or invalid engineer set
   	      }); // end of onlinecheck
 		  
 		  });
-		  
+		    
         }); // end of DOM ready
-  
+		
       function menubuttonpressed() {
         window.location.replace("index.html");
         }

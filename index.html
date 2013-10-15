@@ -28,6 +28,11 @@
 	
 	  $rootpath = localStorage.getItem("rootpath");
 
+      var $ios = false;
+      var $p = navigator.platform;
+      if( $p === 'iPad' || $p === 'iPhone' || $p === 'iPod' ) $ios = true;
+      localStorage.setItem("ios",$ios);
+
       $engineerid = localStorage.getItem("storedengineerid");
       $engineername = localStorage.getItem("storedengineername");
 
@@ -83,7 +88,8 @@
         window.location.replace("../mobile/adhocjob.html"); }*/
 
       function onlinecheckbuttonpressed() {
-        alertshowingonlinestatus(); }
+        alertshowingonlinestatus(); 
+		}
   
       function erasebuttonpressed() {
         localStorage.removeItem("jsonbookingdata");
@@ -134,7 +140,7 @@
               <div class='small' id='engineertext'></div>
             </td>
 		    <td align='right' style='vertical-align:middle'>
-		      <span style='font-size:60%'>356</span>
+		      <span style='font-size:60%'>398</span>
             </td>
 		  </tr>
         </table>
@@ -162,12 +168,12 @@
 		
 		<!--<a href="#popupBasic" data-rel="popup" data-role="button" data-inline="true">Open Popup</a>-->
 
-<div data-role="popup" id="popupBasic">
+<!--<div data-role="popup" id="popupBasic">
 	<p><script>
 	if(checkonlinestatus) document.write("Online");
 	else document.write("Offline");
 	</script><p>
-</div>
+</div>-->
 
       </div>
     </div>
