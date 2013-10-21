@@ -22,9 +22,9 @@
 
     <script>
 
-	  localStorage.setItem("rootpath","http://plannerdev.burnleylab.co.uk/mobile/"); // use this for Android Dev build
-	  //localStorage.setItem("rootpath","http://planner.burnleylab.co.uk/mobile/"); // use this for Android Live build
-	  //localStorage.setItem("rootpath",""); // use this for IOS build (Live or Dev)
+	  //localStorage.setItem("rootpath","http://plannerdev.burnleylab.co.uk/mobile/"); // use this for Android Dev build
+	  localStorage.setItem("rootpath","http://planner.burnleylab.co.uk/mobile/"); // use this for Android Live build
+	  //localStorage.setItem("rootpath",""); // use this for IOS build (Live or Dev) - and WEB build (Live or Dev)
 	
 	  $rootpath = localStorage.getItem("rootpath");
 
@@ -65,6 +65,18 @@
           document.getElementById("engineertext").innerHTML = "Engineer: " + $engineername;   
 	      }
 		downloadissueslist(); // download issues list in case it has changed (probably isn't needed that often)
+
+	    $("#worksummarybutton").click(function() {
+          onlinecheck(function(result) {
+            if(result==true) {
+	          window.location.replace("worksummary.html"); // online code here
+	          }
+	        else {
+  	          alert("You are currently offline, this function is only available when you are online.  Please try again later."); // offline code here
+	          }
+	        });
+          }); // end of worksummarybutton
+
         }); 
   
 // functions
@@ -91,7 +103,7 @@
         alertshowingonlinestatus(); 
 		}
   
-      function erasebuttonpressed() {
+      /*function erasebuttonpressed() {
         localStorage.removeItem("jsonbookingdata");
         localStorage.removeItem("jsonjobarray");
         localStorage.removeItem("jsonjobcompletionlist");
@@ -107,7 +119,7 @@
 		
 	  function dev() {
         alert(autocomplete());
-		} // end of dev
+		} // end of dev*/
 		
       function downloadissueslist() { // ONLY WORKS ONLINE BUT CAN BE CALLED ONLINE OR OFFLINE
         onlinecheck(function(result) {
@@ -125,7 +137,7 @@
 	      }); // end of onlinecheck
         } // end of downloadissueslist
   
-    </script>
+	</script>
 
   </head>
 
@@ -140,7 +152,7 @@
               <div class='small' id='engineertext'></div>
             </td>
 		    <td align='right' style='vertical-align:middle'>
-		      <span style='font-size:60%'>398</span>
+		      <span style='font-size:60%'>460</span>
             </td>
 		  </tr>
         </table>
@@ -156,6 +168,7 @@
           <!--<li data-theme="b"  onclick="adhocbuttonpressed()">Ad-hoc Job</li>-->
           <!--<li data-theme="b"  onclick="getjobsbuttonpressed()">Get Jobs</li>-->
           <li data-theme="b"  onclick="setupbuttonpressed()">Setup</li>
+          <li data-theme="b" id="worksummarybutton">Work Summary</li>
           <!--<li data-theme="b"  onclick="erasebuttonpressed()">Erase</li>-->
           <li data-theme="b"  onclick="onlinecheckbuttonpressed()">Online Check</li>
           <!--<li data-theme="b" href="#popupBasic" data-rel="popup">Online Check</li>-->

@@ -329,6 +329,7 @@ when is jobcompletionlist updated?
 	      }
         return String.fromCharCode.apply(String, bytes);
         }
+		
 	  function noteschanged() {
 	    $newnotes = $("#notes").val();
 		$booking.notes = $newnotes;
@@ -351,7 +352,22 @@ when is jobcompletionlist updated?
           Complete Job
         </a>
 	
-	    <div data-role="collapsible-set" data-content-theme="d">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  <div data-role="collapsible-set" data-content-theme="d">
           <div data-role="collapsible" data-collapsed="true">
             <h3>
               Job Detail
@@ -360,18 +376,19 @@ when is jobcompletionlist updated?
               <div id='body'></div>
             </div>
           </div>
-        </div>
+		  
+      
 	
-	    <div data-role="collapsible-set" data-content-theme="d">
+	    <!--<div data-role="collapsible-set" data-content-theme="d">-->
           <div data-role="collapsible" data-collapsed="false">
             <h3>
               Job Timing
             </h3>
 		    <script>showtimingbuttons()</script>
           </div>
-        </div>
+        <!--</div>
 		
-	    <div data-role="collapsible-set" data-content-theme="d">
+	    <div data-role="collapsible-set" data-content-theme="d">-->
           <div data-role="collapsible" data-collapsed="true">
             <h3>
               Issues
@@ -381,17 +398,19 @@ when is jobcompletionlist updated?
 			  <script>showissuecheckboxes()</script>
 		    </fieldset>
           </div>
-        </div>
+        <!--</div>
 		
-	    <div data-role="collapsible-set" data-content-theme="d">
+	    <div data-role="collapsible-set" data-content-theme="d">-->
           <div data-role="collapsible" data-collapsed="true">
             <h3>
               Notes
             </h3>
             <!--<label for="notes">Notes:</label>-->
-            <textarea name="notes" id="notes" onchange="noteschanged()"></textarea>		    
+            <textarea name="notes" rows="8" id="notes" onchange="noteschanged()"></textarea>		    
           </div>
         </div>
+		
+
 
         <div data-role="fieldcontain" id="completionmenu" class="completionmenuclass">
           <label for="completionmenu">
@@ -401,6 +420,8 @@ when is jobcompletionlist updated?
 	        <script>showjobcompletionmenu($booking.completiondetailid)</script>
           </select>
         </div>
+		
+				</div>
 		
       </div>
     </div>
